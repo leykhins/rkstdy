@@ -1,10 +1,11 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import "../styles/global.css";
+import HeaderNav from "@/components/HeaderNav";
+import Hero from "@/components/Hero.astro";
+import Services from "@/components/Services.astro";
+import About from "@/components/About.astro";
+import Contact from "@/components/Contact.astro";
+import Footer from "@/components/Footer.astro";
 ---
 
 <html lang="en">
@@ -14,13 +15,230 @@ import Button from '../components/Button.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
+		<title>
+			Rocksteady Mechanical - Commercial + Industrial HVAC, Plumbing, Fire in BC
+		</title>
 	</head>
 
 	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
+		<!-- Mask to hide content scrolling above header -->
+		<div class="scroll-mask" aria-hidden="true"></div>
+		<div class="w-full min-h-screen bg-gray-100">
+			<div class="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4" id="home">
+				<header
+					class="header-glass w-full max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-xl border border-white/20 shadow-[0_6px_18px_rgba(0,0,0,0.06)] transition-all duration-300"
+				>
+					<a
+						href="#home"
+						class="flex items-center gap-3 text-lg font-semibold tracking-tight"
+					>
+						<img
+							src="/logo.png"
+							alt="Rocksteady Mechanical logo"
+							class="h-10 sm:h-12 w-auto"
+						/>
+					</a>
+					<HeaderNav variant="desktop" client:load />
+					<div class="flex items-center gap-2">
+						<a
+							href="#quote-form"
+							class="inline-flex items-center gap-2 bg-[var(--brand-red)] hover:bg-[var(--brand-red-hover)] text-white font-semibold py-2 px-3 sm:py-3 sm:px-6 rounded-lg text-sm sm:text-[15px] transition-colors"
+						>
+							<span class="hidden sm:inline">Request a Quote</span>
+							<span class="sm:hidden">Quote</span>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="hidden sm:block"
+								><path d="M7 7h10v10"></path><path d="M7 17 17 7"
+								></path></svg
+							>
+						</a>
+						<HeaderNav variant="mobile" client:load />
+					</div>
+				</header>
+			</div>
+			<main class="w-full max-w-7xl mx-auto px-3 sm:px-4 pb-4 main-content">
+				<div class="scroll-section" data-scroll-section>
+					<Hero />
+				</div>
+				<div class="scroll-section" data-scroll-section>
+					<Services />
+				</div>
+				<div class="scroll-section" data-scroll-section>
+					<About />
+				</div>
+				<div class="scroll-section" data-scroll-section>
+					<Contact />
+				</div>
+			</main>
+			<Footer />
 		</div>
+
+		<style>
+			/* Mask to hide content scrolling above header */
+			.scroll-mask {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 52px;
+				background: #f3f4f6;
+				z-index: 45;
+				pointer-events: none;
+			}
+
+			@media (min-width: 640px) {
+				.scroll-mask {
+					height: 60px;
+				}
+			}
+
+			.main-content {
+				position: relative;
+			}
+
+			.scroll-section {
+				will-change: opacity;
+				margin-bottom: 16px;
+				transition: opacity 0.1s ease-out;
+			}
+
+			.scroll-section:first-child {
+				margin-top: 16px;
+			}
+
+			.scroll-section:last-child {
+				margin-bottom: 0;
+			}
+
+			@media (max-width: 600px) {
+				.scroll-section {
+					margin-bottom: 12px;
+				}
+
+				.scroll-section:first-child {
+					margin-top: 12px;
+				}
+			}
+
+			/* Scroll reveal animations */
+			[data-animate] {
+				opacity: 0;
+				transform: translateY(20px);
+				transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+			}
+
+			[data-animate].animate-in {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			[data-animate-delay="1"] { transition-delay: 0.1s; }
+			[data-animate-delay="2"] { transition-delay: 0.2s; }
+			[data-animate-delay="3"] { transition-delay: 0.3s; }
+			[data-animate-delay="4"] { transition-delay: 0.4s; }
+
+			/* Stagger children animation */
+			[data-animate-stagger] > * {
+				opacity: 0;
+				transform: translateY(15px);
+				transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+			}
+
+			[data-animate-stagger].animate-in > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
+			[data-animate-stagger].animate-in > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+			[data-animate-stagger].animate-in > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+			[data-animate-stagger].animate-in > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+			[data-animate-stagger].animate-in > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+			[data-animate-stagger].animate-in > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+
+			@media (prefers-reduced-motion: reduce) {
+				[data-animate],
+				[data-animate-stagger] > * {
+					opacity: 1;
+					transform: none;
+					transition: none;
+				}
+			}
+		</style>
+
+		<script>
+			function initScrollAnimations() {
+				const sections = document.querySelectorAll('[data-scroll-section]');
+				const fadeStart = 200; // Start fading when section bottom is this far from top
+				const fadeEnd = 100; // Fully faded when section bottom reaches this point
+
+				function updateSections() {
+					sections.forEach((section) => {
+						const rect = section.getBoundingClientRect();
+						const sectionBottom = rect.bottom;
+
+						// Start fading when bottom of section approaches top
+						if (sectionBottom < fadeStart && sectionBottom > fadeEnd) {
+							const fadeProgress = (fadeStart - sectionBottom) / (fadeStart - fadeEnd);
+							const opacity = 1 - (fadeProgress * 0.7); // Fade to 30%
+							(section as HTMLElement).style.opacity = `${opacity}`;
+						} else if (sectionBottom <= fadeEnd) {
+							(section as HTMLElement).style.opacity = '0.3';
+						} else {
+							(section as HTMLElement).style.opacity = '1';
+						}
+					});
+				}
+
+				// Throttle scroll events for performance
+				let ticking = false;
+				window.addEventListener('scroll', () => {
+					if (!ticking) {
+						requestAnimationFrame(() => {
+							updateSections();
+							ticking = false;
+						});
+						ticking = true;
+					}
+				});
+
+				// Initial update
+				updateSections();
+			}
+
+			// Run on page load
+			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+			// Also run immediately in case DOM is already ready
+			if (document.readyState !== 'loading') {
+				initScrollAnimations();
+			}
+
+			// Scroll reveal animations
+			function initRevealAnimations() {
+				const animatedElements = document.querySelectorAll('[data-animate], [data-animate-stagger]');
+
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('animate-in');
+						}
+					});
+				}, {
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px'
+				});
+
+				animatedElements.forEach((el) => observer.observe(el));
+			}
+
+			document.addEventListener('DOMContentLoaded', initRevealAnimations);
+			if (document.readyState !== 'loading') {
+				initRevealAnimations();
+			}
+		</script>
 	</body>
 </html>
