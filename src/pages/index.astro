@@ -6,18 +6,85 @@ import Services from "@/components/Services.astro";
 import About from "@/components/About.astro";
 import Contact from "@/components/Contact.astro";
 import Footer from "@/components/Footer.astro";
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "";
+const title =
+	"Rocksteady Mechanical - Commercial & Industrial HVAC, Plumbing, Fire Protection in British Columbia";
+const description =
+	"Rocksteady Mechanical provides commercial and industrial HVAC, plumbing, and fire protection services across British Columbia. 24/7 emergency service, compliance-focused, and fast response.";
+const canonical = siteUrl ? new URL("/", siteUrl).toString() : "";
+const ogImage = siteUrl
+	? new URL("/img/rocksteady_hvac_truck.jpg", siteUrl).toString()
+	: "/img/rocksteady_hvac_truck.jpg";
+const businessAddress = {
+	streetAddress: "103-2544 Douglas Rd",
+	addressLocality: "Burnaby",
+	addressRegion: "BC",
+	postalCode: "V5C 5W7",
+	addressCountry: "CA",
+};
+const businessPhone = "+1-604-785-4466";
+const businessEmail = "info@rocksteadymechanical.com";
 ---
 
-<html lang="en">
+<html lang="en-CA">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<meta name="generator" content={Astro.generator} />
-		<title>
-			Rocksteady Mechanical - Commercial + Industrial HVAC, Plumbing, Fire in BC
-		</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta
+			name="robots"
+			content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+		/>
+		<meta name="theme-color" content="#d21f1f" />
+		{canonical && <link rel="canonical" href={canonical} />}
+		{canonical && <link rel="alternate" hrefLang="en-CA" href={canonical} />}
+		<meta property="og:site_name" content="Rocksteady Mechanical" />
+		<meta property="og:locale" content="en_CA" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical || siteUrl || "/"} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:alt" content="Rocksteady Mechanical service vehicle" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<script type="application/ld+json">
+			{JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "LocalBusiness",
+				name: "Rocksteady Mechanical",
+				url: canonical || siteUrl || undefined,
+				image: ogImage,
+				logo: siteUrl ? new URL("/logo.svg", siteUrl).toString() : "/logo.svg",
+				telephone: businessPhone,
+				email: businessEmail,
+				address: {
+					"@type": "PostalAddress",
+					...businessAddress,
+				},
+				hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+					`${businessAddress.streetAddress}, ${businessAddress.addressLocality}, ${businessAddress.addressRegion} ${businessAddress.postalCode}`,
+				)}`,
+				areaServed: "British Columbia",
+				openingHoursSpecification: [
+					{
+						"@type": "OpeningHoursSpecification",
+						dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+						opens: "08:00",
+						closes: "18:00",
+					},
+				],
+			})}
+		</script>
 	</head>
 
 	<body>
@@ -33,7 +100,7 @@ import Footer from "@/components/Footer.astro";
 						class="flex items-center gap-3 text-lg font-semibold tracking-tight"
 					>
 						<img
-							src="/logo.png"
+							src="/logo.svg"
 							alt="Rocksteady Mechanical logo"
 							class="h-10 sm:h-12 w-auto"
 						/>
@@ -44,7 +111,8 @@ import Footer from "@/components/Footer.astro";
 							href="#quote-form"
 							class="inline-flex items-center gap-2 bg-[var(--brand-red)] hover:bg-[var(--brand-red-hover)] text-white font-semibold py-2 px-3 sm:py-3 sm:px-6 rounded-lg text-sm sm:text-[15px] transition-colors"
 						>
-							<span class="hidden sm:inline">Request a Quote</span>
+							<span class="hidden sm:inline">Request a Quote</span
+							>
 							<span class="sm:hidden">Quote</span>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -57,15 +125,17 @@ import Footer from "@/components/Footer.astro";
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								class="hidden sm:block"
-								><path d="M7 7h10v10"></path><path d="M7 17 17 7"
-								></path></svg
+								><path d="M7 7h10v10"></path><path
+									d="M7 17 17 7"></path></svg
 							>
 						</a>
 						<HeaderNav variant="mobile" client:load />
 					</div>
 				</header>
 			</div>
-			<main class="w-full max-w-7xl mx-auto px-3 sm:px-4 pb-4 main-content">
+			<main
+				class="w-full max-w-7xl mx-auto px-3 sm:px-4 pb-4 main-content"
+			>
 				<div class="scroll-section" data-scroll-section>
 					<Hero />
 				</div>
@@ -133,7 +203,9 @@ import Footer from "@/components/Footer.astro";
 			[data-animate] {
 				opacity: 0;
 				transform: translateY(20px);
-				transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+				transition:
+					opacity 0.6s ease-out,
+					transform 0.6s ease-out;
 			}
 
 			[data-animate].animate-in {
@@ -141,24 +213,58 @@ import Footer from "@/components/Footer.astro";
 				transform: translateY(0);
 			}
 
-			[data-animate-delay="1"] { transition-delay: 0.1s; }
-			[data-animate-delay="2"] { transition-delay: 0.2s; }
-			[data-animate-delay="3"] { transition-delay: 0.3s; }
-			[data-animate-delay="4"] { transition-delay: 0.4s; }
+			[data-animate-delay="1"] {
+				transition-delay: 0.1s;
+			}
+			[data-animate-delay="2"] {
+				transition-delay: 0.2s;
+			}
+			[data-animate-delay="3"] {
+				transition-delay: 0.3s;
+			}
+			[data-animate-delay="4"] {
+				transition-delay: 0.4s;
+			}
 
 			/* Stagger children animation */
 			[data-animate-stagger] > * {
 				opacity: 0;
 				transform: translateY(15px);
-				transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+				transition:
+					opacity 0.5s ease-out,
+					transform 0.5s ease-out;
 			}
 
-			[data-animate-stagger].animate-in > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
-			[data-animate-stagger].animate-in > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-			[data-animate-stagger].animate-in > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-			[data-animate-stagger].animate-in > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-			[data-animate-stagger].animate-in > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-			[data-animate-stagger].animate-in > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+			[data-animate-stagger].animate-in > *:nth-child(1) {
+				transition-delay: 0s;
+				opacity: 1;
+				transform: translateY(0);
+			}
+			[data-animate-stagger].animate-in > *:nth-child(2) {
+				transition-delay: 0.1s;
+				opacity: 1;
+				transform: translateY(0);
+			}
+			[data-animate-stagger].animate-in > *:nth-child(3) {
+				transition-delay: 0.2s;
+				opacity: 1;
+				transform: translateY(0);
+			}
+			[data-animate-stagger].animate-in > *:nth-child(4) {
+				transition-delay: 0.3s;
+				opacity: 1;
+				transform: translateY(0);
+			}
+			[data-animate-stagger].animate-in > *:nth-child(5) {
+				transition-delay: 0.4s;
+				opacity: 1;
+				transform: translateY(0);
+			}
+			[data-animate-stagger].animate-in > *:nth-child(6) {
+				transition-delay: 0.5s;
+				opacity: 1;
+				transform: translateY(0);
+			}
 
 			@media (prefers-reduced-motion: reduce) {
 				[data-animate],
@@ -172,7 +278,9 @@ import Footer from "@/components/Footer.astro";
 
 		<script>
 			function initScrollAnimations() {
-				const sections = document.querySelectorAll('[data-scroll-section]');
+				const sections = document.querySelectorAll(
+					"[data-scroll-section]",
+				);
 				const fadeStart = 200; // Start fading when section bottom is this far from top
 				const fadeEnd = 100; // Fully faded when section bottom reaches this point
 
@@ -182,21 +290,27 @@ import Footer from "@/components/Footer.astro";
 						const sectionBottom = rect.bottom;
 
 						// Start fading when bottom of section approaches top
-						if (sectionBottom < fadeStart && sectionBottom > fadeEnd) {
-							const fadeProgress = (fadeStart - sectionBottom) / (fadeStart - fadeEnd);
-							const opacity = 1 - (fadeProgress * 0.7); // Fade to 30%
-							(section as HTMLElement).style.opacity = `${opacity}`;
+						if (
+							sectionBottom < fadeStart &&
+							sectionBottom > fadeEnd
+						) {
+							const fadeProgress =
+								(fadeStart - sectionBottom) /
+								(fadeStart - fadeEnd);
+							const opacity = 1 - fadeProgress * 0.7; // Fade to 30%
+							(section as HTMLElement).style.opacity =
+								`${opacity}`;
 						} else if (sectionBottom <= fadeEnd) {
-							(section as HTMLElement).style.opacity = '0.3';
+							(section as HTMLElement).style.opacity = "0.3";
 						} else {
-							(section as HTMLElement).style.opacity = '1';
+							(section as HTMLElement).style.opacity = "1";
 						}
 					});
 				}
 
 				// Throttle scroll events for performance
 				let ticking = false;
-				window.addEventListener('scroll', () => {
+				window.addEventListener("scroll", () => {
 					if (!ticking) {
 						requestAnimationFrame(() => {
 							updateSections();
@@ -211,32 +325,37 @@ import Footer from "@/components/Footer.astro";
 			}
 
 			// Run on page load
-			document.addEventListener('DOMContentLoaded', initScrollAnimations);
+			document.addEventListener("DOMContentLoaded", initScrollAnimations);
 			// Also run immediately in case DOM is already ready
-			if (document.readyState !== 'loading') {
+			if (document.readyState !== "loading") {
 				initScrollAnimations();
 			}
 
 			// Scroll reveal animations
 			function initRevealAnimations() {
-				const animatedElements = document.querySelectorAll('[data-animate], [data-animate-stagger]');
+				const animatedElements = document.querySelectorAll(
+					"[data-animate], [data-animate-stagger]",
+				);
 
-				const observer = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('animate-in');
-						}
-					});
-				}, {
-					threshold: 0.1,
-					rootMargin: '0px 0px -50px 0px'
-				});
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add("animate-in");
+							}
+						});
+					},
+					{
+						threshold: 0.1,
+						rootMargin: "0px 0px -50px 0px",
+					},
+				);
 
 				animatedElements.forEach((el) => observer.observe(el));
 			}
 
-			document.addEventListener('DOMContentLoaded', initRevealAnimations);
-			if (document.readyState !== 'loading') {
+			document.addEventListener("DOMContentLoaded", initRevealAnimations);
+			if (document.readyState !== "loading") {
 				initRevealAnimations();
 			}
 		</script>
