@@ -71,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
 			.replace(/'/g, "&#39;");
 
 	const siteOrigin = SITE_URL.startsWith("http") ? SITE_URL : `https://${SITE_URL}`;
-	const logoUrl = `${siteOrigin.replace(/\\/+$/, "")}/logo.png`;
+	const logoUrl = `${siteOrigin.replace(/\/+$/, "")}/logo.png`;
 	const safeName = escapeHtml(name);
 	const safeEmail = escapeHtml(email);
 	const safePhone = escapeHtml(phone);
