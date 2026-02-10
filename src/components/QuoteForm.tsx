@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Check, CheckCircle2, Loader2, Mail, MessageSquare, Phone, User2, Wrench } from "lucide-react";
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 type FormData = {
   name: string;
   email: string;
@@ -82,6 +88,14 @@ export default function QuoteForm() {
         throw new Error(payload?.error ?? "Unable to send your request. Please try again.");
       }
       setSubmitted(true);
+
+      // GA4: track successful quote submission
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "submit_quote", {
+          event_category: "engagement",
+          services: formData.services.join(", "),
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to send your request. Please try again.");
     } finally {
