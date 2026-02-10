@@ -18,11 +18,18 @@ const services = [
 		icon: "🔧",
 	},
 	{
-		title: "Fire",
+		title: "Sprinklers",
 		description:
-			"Fire protection systems, inspections, and compliance support for facilities.",
+			"Sprinkler system design, installation, inspections, and compliance support for facilities.",
 		image: "/img/rocksteady_fire.jpg",
-		icon: "🔥",
+		icon: "💧",
+	},
+	{
+		title: "Refrigeration",
+		description:
+			"Commercial and industrial refrigeration installation, maintenance, and repair services.",
+		image: "/img/rocksteady_refrigeration.jpg",
+		icon: "🧊",
 	},
 ];
 ---
@@ -33,8 +40,8 @@ const services = [
 			<span class="section-label">Our Services</span>
 			<h2 class="section-title">What We Offer</h2>
 			<p class="section-description">
-				Commercial and industrial HVAC, plumbing, and fire systems
-				delivered with safety and uptime in mind.
+			Commercial and industrial HVAC, plumbing, sprinkler, and refrigeration systems
+			delivered with safety and uptime in mind.
 			</p>
 		</div>
 
@@ -138,7 +145,7 @@ const services = [
 
 	.services-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 		gap: 20px;
 	}
 
