@@ -6,6 +6,7 @@ import Services from "@/components/Services.astro";
 import About from "@/components/About.astro";
 import Contact from "@/components/Contact.astro";
 import Footer from "@/components/Footer.astro";
+import CookieConsent from "@/components/CookieConsent.astro";
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "";
 const title =
@@ -44,7 +45,7 @@ const businessEmail = "info@rocksteadymechanical.com";
 		/>
 		<meta name="theme-color" content="#d21f1f" />
 		{canonical && <link rel="canonical" href={canonical} />}
-		{canonical && <link rel="alternate" hrefLang="en-CA" href={canonical} />}
+		{canonical && <link rel="alternate" hreflang="en-CA" href={canonical} />}
 		<meta property="og:site_name" content="Rocksteady Mechanical" />
 		<meta property="og:locale" content="en_CA" />
 		<meta property="og:type" content="website" />
@@ -109,7 +110,7 @@ const businessEmail = "info@rocksteadymechanical.com";
 					<div class="flex items-center gap-2">
 						<a
 							href="#quote-form"
-							class="inline-flex items-center gap-2 bg-[var(--brand-red)] hover:bg-[var(--brand-red-hover)] text-white font-semibold py-2 px-3 sm:py-3 sm:px-6 rounded-lg text-sm sm:text-[15px] transition-colors"
+							class="inline-flex items-center gap-2 bg-(--brand-red) hover:bg-(--brand-red-hover) text-white font-semibold py-2 px-3 sm:py-3 sm:px-6 rounded-lg text-sm sm:text-[15px] transition-colors"
 						>
 							<span class="hidden sm:inline">Request a Quote</span
 							>
@@ -151,6 +152,7 @@ const businessEmail = "info@rocksteadymechanical.com";
 			</main>
 			<Footer />
 		</div>
+		<CookieConsent />
 
 		<style>
 			/* Mask to hide content scrolling above header */

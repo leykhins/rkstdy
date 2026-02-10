@@ -1,4 +1,4 @@
-﻿export const prerender = true;
+export const prerender = true;
 
 export function GET() {
 	const siteUrl = import.meta.env.PUBLIC_SITE_URL || "";
@@ -9,6 +9,16 @@ export function GET() {
 		`    <loc>${baseUrl || ""}/</loc>\n` +
 		`    <changefreq>weekly</changefreq>\n` +
 		`    <priority>1.0</priority>\n` +
+		`  </url>\n` +
+		`  <url>\n` +
+		`    <loc>${baseUrl || ""}/privacy-policy</loc>\n` +
+		`    <changefreq>yearly</changefreq>\n` +
+		`    <priority>0.3</priority>\n` +
+		`  </url>\n` +
+		`  <url>\n` +
+		`    <loc>${baseUrl || ""}/terms-of-service</loc>\n` +
+		`    <changefreq>yearly</changefreq>\n` +
+		`    <priority>0.3</priority>\n` +
 		`  </url>\n` +
 		`</urlset>\n`;
 
